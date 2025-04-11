@@ -1,5 +1,5 @@
 # helpdesk-app-final-project
-A web-based helpdesk/ticketing system built with **Java Spring Boot**, **Thymeleaf**, **Spring Security**, **Spring Data JPA**, **MySQL**, and **IntelliJ IDEA**.
+A web-based helpdesk/ticketing system built with **Java Spring Boot**, **Thymeleaf**, **Spring Data JPA**, **MySQL**, and **IntelliJ IDEA**.
 ## 🚀 Features
 
 🧾 Helpdesk Support Application - Summary
@@ -18,8 +18,6 @@ Backend: Java, Spring Boot
 Frontend: Thymeleaf (HTML, CSS, Bootstrap-style design)
 
 Database: MySQL (with Spring Data JPA & JDBC)
-
-Security: Spring Security (Authentication & Role-based Authorization)
 
 IDE: IntelliJ IDEA
 
