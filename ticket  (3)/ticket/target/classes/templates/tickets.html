@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Your Tickets</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #333;
+      margin: 0;
+    }
+
+    .home-button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .home-button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    a {
+      text-decoration: none;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .filter-bar {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      max-width: 300px;
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>Your Tickets</h2>
+  <div>
+    <a href="http://localhost:8080/create-ticket" class="home-button">Create Ticket</a>
+  </div>
+</div>
+
+
+<div class="filter-bar">
+  <input type="text" id="ticketSearch" placeholder="Search tickets..." />
+  <select id="statusFilter">
+    <option value="">All Statuses</option>
+    <option value="Open">Open</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Closed">Closed</option>
+  </select>
+</div>
+
+
+<table id="ticketTable">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="ticket : ${tickets}">
+    <td th:text="${ticket.title}"></td>
+    <td th:text="${ticket.status}"></td>
+    <td><a th:href="@{/ticket/{id}(id=${ticket.id})}">View</a></td>
+  </tr>
+  </tbody>
+</table>
+
+
+<script>
+  const searchInput = document.getElementById('ticketSearch');
+  const statusFilter = document.getElementById('statusFilter');
+  const rows = document.querySelectorAll('#ticketTable tbody tr');
+
+  function filterTickets() {
+    const keyword = searchInput.value.toLowerCase();
+    const selectedStatus = statusFilter.value.toLowerCase();
+
+    rows.forEach(row => {
+      const title = row.cells[0].innerText.toLowerCase();
+      const status = row.cells[1].innerText.toLowerCase();
+
+      const matchesKeyword = title.includes(keyword) || status.includes(keyword);
+      const matchesStatus = selectedStatus === "" || status === selectedStatus;
+
+      row.style.display = (matchesKeyword && matchesStatus) ? "" : "none";
+    });
+  }
+
+  searchInput.addEventListener('keyup', filterTickets);
+  statusFilter.addEventListener('change', filterTickets);
+</script>
+
+</body>
+</html>

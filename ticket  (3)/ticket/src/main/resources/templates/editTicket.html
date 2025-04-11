@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Ticket</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #4CAF50; /* Green header */
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    h2 {
+        margin-top: 0;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        max-width: 500px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Green button */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 15px;
+        text-decoration: none;
+        color: #4CAF50; /* Green link */
+        font-weight: bold;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>Edit Ticket</h2>
+</header>
+
+<div class="container">
+  <form th:action="@{'/ticket/' + ${ticket.id} + '/edit'}" method="post">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" th:value="${ticket.title}" required>
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="5" required th:text="${ticket.description}"></textarea>
+
+    <label for="status">Status</label>
+    <select id="status" name="status">
+      <option th:value="'Open'" th:selected="${ticket.status == 'Open'}">Open</option>
+      <option th:value="'In Progress'" th:selected="${ticket.status == 'In Progress'}">In Progress</option>
+      <option th:value="'Closed'" th:selected="${ticket.status == 'Closed'}">Closed</option>
+    </select>
+
+    <button type="submit">Update Ticket</button>
+  </form>
+  <a th:href="@{/ticket/{id}(id=${ticket.id})}" class="back-link">← Back to Ticket Details</a>
+</div>
+
+</body>
+</html>

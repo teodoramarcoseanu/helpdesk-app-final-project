@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Ticket Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50; /* Green header */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        div {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        strong {
+            color: #4CAF50; /* Green for strong labels */
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background: #4CAF50; /* Green button background */
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            background: #45a049; /* Darker green on hover */
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green button background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Ticket Details</h2>
+</header>
+
+<div class="container">
+    <div>
+        <p><strong>Title:</strong> <span th:text="${ticket.title}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${ticket.description}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${ticket.status}"></span></p>
+    </div>
+
+    <!-- Status Update Form -->
+    <form th:action="@{'/ticket/' + ${ticket.id} + '/update-status'}" method="post">
+        <label for="status">Update Status:</label>
+        <select name="status" id="status">
+            <option value="Open" th:selected="${ticket.status == 'Open'}">Open</option>
+            <option value="In Progress" th:selected="${ticket.status == 'In Progress'}">In Progress</option>
+            <option value="Closed" th:selected="${ticket.status == 'Closed'}">Closed</option>
+        </select>
+        <button type="submit">Update</button>
+    </form>
+
+    <!-- Buttons for navigating back and editing the ticket -->
+    <div>
+        <a href="/tickets">Back to Tickets List</a>
+        <a th:href="@{'/ticket/' + ${ticket.id} + '/edit'}">Edit</a>
+    </div>
+</div>
+
+</body>
+</html>
